@@ -4,6 +4,8 @@ import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -15,7 +17,7 @@ import javax.microedition.khronos.opengles.GL10;
 //ESTA CLASSE IMPLEMENTA OS METODOS NECESSARIOS PARA
 //UTILIZAR A BIBLIOTECA OPENGL NO DESENHO GRAFICO
 //QUE SERA APRESENTADO NA TELA PELA SUPERFICIE DE DESENHO
-class Renderizador implements GLSurfaceView.Renderer {
+class Renderizador implements GLSurfaceView.Renderer, View.OnTouchListener {
 
     float posX = 0;
     float direcao = 1;
@@ -82,7 +84,7 @@ class Renderizador implements GLSurfaceView.Renderer {
         triangulo.setPos(triaguloCabeca);
 
         //CONVERTE PARA O VETOR DO OPENGL
-        buffer1 = criaBuffer(vetroJava1);
+        buffer1 = criaBuffer(triaguloCabeca);
 
         //SOLICITA AO OPENGL PERMISSAO PARA USAR O VETOR DE VERTICES
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
@@ -172,6 +174,15 @@ class Renderizador implements GLSurfaceView.Renderer {
         buffer.flip();
         //retorna o objeto de coordenadas
         return buffer;
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+
+        posX = (int)motionEvent.getX();
+        posY = altura - (int)motionEvent.getY();
+
+        return true;
     }
 }
 

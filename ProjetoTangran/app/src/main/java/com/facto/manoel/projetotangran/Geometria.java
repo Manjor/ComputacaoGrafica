@@ -9,7 +9,7 @@ import javax.microedition.khronos.opengles.GL10;
 public abstract class Geometria {
 
     private GL10 gl;
-    private float[] cor = {0.5f,0.5f,0.5f,1f};
+    private float[] cor = {(float)Math.random(),(float)Math.random(),(float)Math.random(),1};
     private float[] cordenadas;
     private int angulo = 0;
     private int anguloy = 0;

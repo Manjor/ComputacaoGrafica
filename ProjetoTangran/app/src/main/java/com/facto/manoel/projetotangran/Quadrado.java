@@ -22,7 +22,7 @@ public class Quadrado extends Geometria {
 
         super.getGl().glLoadIdentity();
         super.getGl().glVertexPointer(2,GL10.GL_FLOAT,0, buffer);
-        super.getGl().glTranslatef(posX+getLargura()/2,posY+getAltura()/2,0);
+        super.getGl().glTranslatef(posX,posY,0);
         super.getGl().glRotatef(getAngulo(),0,0,1);
         super.getGl().glColor4f(getCor()[0],getCor()[1],getCor()[2],getCor()[3]);
         super.getGl().glDrawArrays(GL10.GL_TRIANGLE_STRIP,0,4);

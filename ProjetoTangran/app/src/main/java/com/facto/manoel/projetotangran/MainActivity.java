@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         render = new Renderizador();
 
         superficieDesenho.setRenderer(render);
+        superficieDesenho.setOnTouchListener(render);
 
         setContentView(superficieDesenho);
 
