@@ -1,5 +1,9 @@
 package com.facto.manoel.projetotangran;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -11,7 +15,7 @@ import java.util.List;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public class Renderizador implements GLSurfaceView.Renderer, View.OnTouchListener {
+public class Renderizador implements GLSurfaceView.Renderer, View.OnTouchListener{
 
     int largura;
     int altura;
@@ -60,18 +64,16 @@ public class Renderizador implements GLSurfaceView.Renderer, View.OnTouchListene
         gl10.glClear(gl10.GL_COLOR_BUFFER_BIT);
         gl10.glLoadIdentity();
 
-        Log.i("INFO","Tamanho: " + geometrias.size());
+        Log.i("INFO", "Tamanho: " + geometrias.size());
 
 
-        synchronized (this){
-            for(Geometria geometria : this.geometrias){
+        synchronized (this) {
+            for (Geometria geometria : this.geometrias) {
 
                 geometria.desenhar();
 
             }
         }
-
-
 
     }
 
@@ -92,7 +94,6 @@ public class Renderizador implements GLSurfaceView.Renderer, View.OnTouchListene
                     //seto as possicoes X e Y do desenho
                     posX = (int) event.getX();
                     posY = altura - (int) event.getY();
-
 
                     this.geometrias.get(indiceObjeto).posX = posX;
                     this.geometrias.get(indiceObjeto).posY = posY;
