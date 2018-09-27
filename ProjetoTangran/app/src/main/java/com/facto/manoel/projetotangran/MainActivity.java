@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
-    public static float direcaoX;
-    public static float direcaoY;
+    public static float direcaoX = 0;
+    public static float direcaoY = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,27 +59,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         float z = sensorEvent.values[2];
 
 
-        if(y < -2) { // O dispositivo esta de cabeça pra baixo
-            if(x > 2)
-                Log.i("ACE","Virando para ESQUERDA ficando INVERTIDO");
-
-                this.direcaoX = -2;
-                this.direcaoY = -2;
-
-            if(x < -2)
-                Log.i("ACE","Virando para DIREITA ficando INVERTIDO");
-                this.direcaoX = -2;
-                this.direcaoY = -2;
-        } else {
-            if(x > 2)
-                Log.i("ACE","Virando para ESQUERDA ");
-                this.direcaoX = -2;
-                this.direcaoY = -2;
-            if(x < -2)
-                Log.i("ACE","Virando para DIREITA ");
-                this.direcaoX = -2;
-                this.direcaoY = -2;
+        if(y < -2 ){
+            direcaoY = -100;
         }
+        if(y > 2){
+            direcaoY = 100;
+        }
+        if(x < -2){
+            Log.i("ACE", "Virando para ESQUERDA ");
+            direcaoX = +100;
+        }
+        if(x > 2){
+            Log.i("ACE", "Virando para ESQUERDA ");
+            direcaoX = -100;
+        }
+
     }
 
     @Override

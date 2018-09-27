@@ -63,7 +63,7 @@ public class Renderizador implements GLSurfaceView.Renderer, View.OnTouchListene
 
         gl10.glClear(gl10.GL_COLOR_BUFFER_BIT);
         gl10.glLoadIdentity();
-
+        gl10.glTranslatef(10,10,0);
         Log.i("INFO", "Tamanho: " + geometrias.size());
 
 
@@ -71,7 +71,6 @@ public class Renderizador implements GLSurfaceView.Renderer, View.OnTouchListene
             for (Geometria geometria : this.geometrias) {
 
                 geometria.desenhar();
-
             }
         }
 
