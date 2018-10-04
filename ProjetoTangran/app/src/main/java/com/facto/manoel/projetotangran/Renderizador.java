@@ -25,6 +25,14 @@ public class Renderizador implements GLSurfaceView.Renderer, View.OnTouchListene
     int posY = 600;
     float angulo = 0;
 
+    //float maxAngulo = 5f;
+    boolean limite = false;
+    float anguloSegundo = 0;
+    float anguloMinuto = 0;
+    float anguloHora = 0;
+
+    float maxValue = 60;
+
     List<Geometria> geometrias = new ArrayList<>();
     GL10 gl10;
     @Override
@@ -54,9 +62,9 @@ public class Renderizador implements GLSurfaceView.Renderer, View.OnTouchListene
         //this.geometrias.add(new Quadrado(gl10,(int)(largura * 0.5),(int)(altura * 0.5),0,0));
         //this.geometrias.add(new Quadrado(gl10,(int)(largura * 0.5),(int)(altura * 0.5),200,200));
         //this.geometrias.add(new Quadrado(gl10,(int)(largura * 0.75),(int)(altura * 0.75),100,100));
-        this.geometrias.add(new Retangulo(gl10,200,600));
-        this.geometrias.add(new Retangulo(gl10,200,600));
-        this.geometrias.add(new Retangulo(gl10,200,600));
+        this.geometrias.add(new Retangulo(gl10,100,600));
+        this.geometrias.add(new Retangulo(gl10,100,600));
+        this.geometrias.add(new Retangulo(gl10,100,600));
         //this.geometrias.add(new Triangulo(gl10,(int)(largura * 0.5),(int)(altura * 0.9),250,125));
         //this.geometrias.add(new Paralelograma(gl10,(int)(largura * 0.75),(int)(altura * 0.9),300,100));
 
@@ -64,47 +72,61 @@ public class Renderizador implements GLSurfaceView.Renderer, View.OnTouchListene
 
     }
 
-    //float maxAngulo = 5f;
-    boolean limite = false;
+
+
+
+
+
     @Override
     public void onDrawFrame(GL10 gl10) {
         gl10.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl10.glClear(gl10.GL_COLOR_BUFFER_BIT);
         gl10.glLoadIdentity();
 
+        geometrias.get(1).getGl().glRotatef(0,0,0,1);
         geometrias.get(0).getGl().glColor4f(0.0f,0.0f,0.7f,0.6f);
-        geometrias.get(0).getGl().glTranslatef(largura/2, 200,0);
-        geometrias.get(0).getGl().glRotatef(this.angulo,0,0,1);
+        geometrias.get(0).getGl().glTranslatef(largura/2, 600,0);
+        geometrias.get(0).getGl().glRotatef(this.anguloMinuto,0,0,2);
 
         geometrias.get(0).desenhar();
         //gl10.glLoadIdentity();
         gl10.glPushMatrix();
-            geometrias.get(1).getGl().glTranslatef(0 , 450,0);
-            geometrias.get(1).getGl().glRotatef(this.angulo,0,0,1);
+            geometrias.get(1).getGl().glRotatef(0,0,0,1);
+            geometrias.get(2).getGl().glColor4f(0.1f,0.6f,1.0f,0.5f);
+            geometrias.get(1).getGl().glTranslatef(0 , -75,0);
+            geometrias.get(1).getGl().glRotatef(this.anguloSegundo,0,0,1);
+            geometrias.get(1).getGl().glScalef(0.7f,0.7f,0.7f);
             geometrias.get(1).desenhar();
             gl10.glPushMatrix();
             //gl10.glLoadIdentity();
-                geometrias.get(2).getGl().glTranslatef(0 , 450,0);
-                geometrias.get(2).getGl().glRotatef(this.angulo,0,0,1);
+                geometrias.get(2).getGl().glRotatef(0,0,0,1);
+                geometrias.get(2).getGl().glColor4f(1.1f,1.0f,1.0f,0.9f);
+                geometrias.get(2).getGl().glTranslatef(0 , 4,0);
+                geometrias.get(2).getGl().glRotatef(this.anguloHora,0,0,1);
+                geometrias.get(2).getGl().glScalef(0.7f,0.7f,0.7f);
                 geometrias.get(2).desenhar();
 
                 gl10.glPopMatrix();
         gl10.glPopMatrix();
 
 
-        if(this.angulo > 6f){
+
+
+
+        /*if(this.anguloMinuto > 60){
+            this.anguloHora+=1;
             this.limite = false;
         }
-        else if(this.angulo < -6f){
+        else if(this.angulo < -360){
             this.limite = true;
         }
 
         if(this.limite){
-            this.angulo+=0.1f;
+            this.angulo+=0.2f;
         }
         else{
-            this.angulo-=0.1f;
-        }
+            this.angulo-=0.2f;
+        }*/
 
 /*
         gl10.glPushMatrix();
