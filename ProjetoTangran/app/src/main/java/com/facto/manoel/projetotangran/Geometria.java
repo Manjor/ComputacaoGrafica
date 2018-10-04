@@ -57,6 +57,11 @@ public abstract class Geometria {
         this.altura = altura;
         setCordenadas();
     }
+    public Geometria(GL10 gl, int largura, int altura)
+    {
+        this.gl = gl; this.largura = largura; this.altura = altura;
+        setCordenadas();
+    }
 
     public GL10 getGl(){
         return this.gl;

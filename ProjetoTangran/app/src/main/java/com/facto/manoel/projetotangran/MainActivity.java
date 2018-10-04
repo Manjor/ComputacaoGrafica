@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity /*implements SensorEventListener*/ {
 
     GLSurfaceView superficieDesenho = null;
     Renderizador render = null;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
     }
-
+    /*
     @Override
       protected void onResume(){
         super.onResume();
@@ -58,18 +58,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         float y = sensorEvent.values[1];
         float z = sensorEvent.values[2];
 
-
-        if(y < -2 ){
+        if(y > -3 && y < 3){
+            direcaoY = 0;
+        }
+        if(x > -3 && x < 3){
+            direcaoY = 0;
+        }
+        if(y < -3 ){
             direcaoY = -100;
         }
-        if(y > 2){
+        if(y > 3){
             direcaoY = 100;
         }
-        if(x < -2){
+        if(x < - 3){
             Log.i("ACE", "Virando para ESQUERDA ");
-            direcaoX = +100;
+            direcaoX = 100;
         }
-        if(x > 2){
+        if(x > 3){
             Log.i("ACE", "Virando para ESQUERDA ");
             direcaoX = -100;
         }
@@ -79,5 +84,5 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
 
-    }
+    }*/
 }

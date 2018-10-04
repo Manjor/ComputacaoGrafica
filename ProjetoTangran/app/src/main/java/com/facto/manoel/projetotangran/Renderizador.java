@@ -23,12 +23,13 @@ public class Renderizador implements GLSurfaceView.Renderer, View.OnTouchListene
     Quadrado quad;
     int posX = 100;
     int posY = 600;
+    float angulo = 0;
 
     List<Geometria> geometrias = new ArrayList<>();
     GL10 gl10;
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
-        gl10.glClearColor(1.0f,0.0f,0.0f,1.0f);
+        gl10.glClearColor(1.0f,1.0f,0.0f,1.0f);
     }
 
     @Override
@@ -39,41 +40,101 @@ public class Renderizador implements GLSurfaceView.Renderer, View.OnTouchListene
 
         gl10.glMatrixMode(gl10.GL_PROJECTION);
         gl10.glLoadIdentity(); //SETANDO MATRIZ IDENTIDADE NA MATRIZ DE PRODUCAO
-        gl10.glOrthof(0f, largura,
-                0f, altura,
-                -1f, 1f); //DEFININDO O VOLUME DE RENDERIZACAO
+        gl10.glOrthof(0.0f, largura,
+                0.0f, altura,
+                -1.0f, 1.0f); //DEFININDO O VOLUME DE RENDERIZACAO
 
         gl10.glMatrixMode(GL10.GL_MODELVIEW); //APONTANDO O OPENGL PARA A MATRIZ DE TRANSFORMACOES GEOMETRICAS (tranzacao, rotacao e escala)
         gl10.glLoadIdentity(); //para limpar o lixo de memoria e setar a matriz inicial
 
-        gl10.glViewport(0,0,largura,altura);
+        gl10.glViewport(0,0,this.largura,this.altura);
 
 
         this.gl10 = gl10;
-        this.geometrias.add(new Quadrado(gl10,(int)(largura * 0.25),(int)(altura * 0.9),0,0));
-        this.geometrias.add(new Quadrado(gl10,(int)(largura * 0.25),(int)(altura * 0.9),175,175));
-        this.geometrias.add(new Triangulo(gl10,(int)(largura * 0.5),(int)(altura * 0.9),250,125));
-        this.geometrias.add(new Paralelograma(gl10,(int)(largura * 0.75),(int)(altura * 0.9),300,100));
-        gl10.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+        //this.geometrias.add(new Quadrado(gl10,(int)(largura * 0.5),(int)(altura * 0.5),0,0));
+        //this.geometrias.add(new Quadrado(gl10,(int)(largura * 0.5),(int)(altura * 0.5),200,200));
+        //this.geometrias.add(new Quadrado(gl10,(int)(largura * 0.75),(int)(altura * 0.75),100,100));
+        this.geometrias.add(new Retangulo(gl10,200,600));
+        this.geometrias.add(new Retangulo(gl10,200,600));
+        this.geometrias.add(new Retangulo(gl10,200,600));
+        //this.geometrias.add(new Triangulo(gl10,(int)(largura * 0.5),(int)(altura * 0.9),250,125));
+        //this.geometrias.add(new Paralelograma(gl10,(int)(largura * 0.75),(int)(altura * 0.9),300,100));
+
 
 
     }
+
+    //float maxAngulo = 5f;
+    boolean limite = false;
     @Override
     public void onDrawFrame(GL10 gl10) {
-
+        gl10.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl10.glClear(gl10.GL_COLOR_BUFFER_BIT);
         gl10.glLoadIdentity();
-        gl10.glTranslatef(10,10,0);
-        Log.i("INFO", "Tamanho: " + geometrias.size());
+
+        geometrias.get(0).getGl().glColor4f(0.0f,0.0f,0.7f,0.6f);
+        geometrias.get(0).getGl().glTranslatef(largura/2, 200,0);
+        geometrias.get(0).getGl().glRotatef(this.angulo,0,0,1);
+
+        geometrias.get(0).desenhar();
+        //gl10.glLoadIdentity();
+        gl10.glPushMatrix();
+            geometrias.get(1).getGl().glTranslatef(0 , 450,0);
+            geometrias.get(1).getGl().glRotatef(this.angulo,0,0,1);
+            geometrias.get(1).desenhar();
+            gl10.glPushMatrix();
+            //gl10.glLoadIdentity();
+                geometrias.get(2).getGl().glTranslatef(0 , 450,0);
+                geometrias.get(2).getGl().glRotatef(this.angulo,0,0,1);
+                geometrias.get(2).desenhar();
+
+                gl10.glPopMatrix();
+        gl10.glPopMatrix();
 
 
-        synchronized (this) {
-            for (Geometria geometria : this.geometrias) {
-
-                geometria.desenhar();
-            }
+        if(this.angulo > 6f){
+            this.limite = false;
+        }
+        else if(this.angulo < -6f){
+            this.limite = true;
         }
 
+        if(this.limite){
+            this.angulo+=0.1f;
+        }
+        else{
+            this.angulo-=0.1f;
+        }
+
+/*
+        gl10.glPushMatrix();
+            geometrias.get(1).getGl().glColor4f(1.0f,0.0f,0.8f,1.0f);
+            //geometrias.get(1).getGl().glRotatef(0,0,0,1);
+            geometrias.get(1).getGl().glTranslatef(largura - 1.0f , altura * 0.10f,0);
+            //geometrias.get(1).getGl().glRotatef(0,0,0,1);
+            //geometrias.get(1).getGl().glScalef(0.5f,0.5f,0.5f);
+            //geometrias.get(1).setAngulo((int)this.angulo);
+            geometrias.get(1).desenhar();
+        /*synchronized (this) {
+            for (Geometria geometria : this.geometrias) {
+
+                geometria.getGl().glScalef(0.5f,0.5f,0.5f);
+                geometria.desenhar();
+            }
+        }*/
+            /*gl10.glPushMatrix();
+            geometrias.get(2).getGl().glColor4f(0.0f,0.7f,0.8f,1.0f);
+            geometrias.get(2).getGl().glRotatef(0,0,0,1);
+            geometrias.get(2).getGl().glTranslatef((int)(largura + 10), (int) (altura * 0.22),0);
+            geometrias.get(2).getGl().glRotatef(0,0,0,1);
+            //geometrias.get(2).getGl().glScalef(0.5f,0.5f,0.5f);
+            //geometrias.get(1).setAngulo((int)this.angulo);
+            geometrias.get(2).desenhar();
+            gl10.glPopMatrix();
+
+
+
+            gl10.glPopMatrix();*/
     }
 
 
