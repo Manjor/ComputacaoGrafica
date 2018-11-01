@@ -116,22 +116,22 @@ public class Renderizador implements GLSurfaceView.Renderer/* View.OnTouchListen
         floatBuffersList.add(txt8);
 
         this.gl10 = gl10;
-        this.geometrias.add(new Quadrado(gl10,(int)(largura * 0.5),(int)(altura * 0.5),0,0));
-//        this.geometrias.add(new Quadrado(gl10,(int)(largura * 0.5),(int)(altura * 0.5),200,200));
-//        this.geometrias.add(new Quadrado(gl10,(int)(largura * 0.75),(int)(altura * 0.75),100,100));
-//        this.geometrias.add(new Quadrado(gl10,800,800));
-//        this.geometrias.add(new Quadrado(gl10,800,800));
-//        this.geometrias.add(new Quadrado(gl10,800,800));
-//        this.geometrias.add(new Quadrado(gl10,800,800));
+        //this.geometrias.add(new Quadrado(gl10,(int)(largura * 0.5),(int)(altura * 0.5),0,0));
+        //this.geometrias.add(new Quadrado(gl10,(int)(largura * 0.5),(int)(altura * 0.5),200,200));
+        //this.geometrias.add(new Quadrado(gl10,(int)(largura * 0.75),(int)(altura * 0.75),100,100));
+        this.geometrias.add(new Quadrado(gl10,800,800));
+        this.geometrias.add(new Quadrado(gl10,800,800));
+        this.geometrias.add(new Quadrado(gl10,800,800));
+        this.geometrias.add(new Quadrado(gl10,800,800));
 //        this.inverte(this.dado);
             gl10.glEnable(GL10.GL_TEXTURE_2D);
             gl10.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
             gl10.glEnable(GL10.GL_ALPHA_TEST);
             gl10.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-//            this.codTextura = carregaTextura(gl10, R.mipmap.asb);
-//            this.codSol = carregaTextura(gl10,R.mipmap.sun);
-//            this.codTerra = carregaTextura(gl10,R.mipmap.terra);
-//            this.codLua = carregaTextura(gl10,R.mipmap.moon);
+            this.codTextura = carregaTextura(gl10, R.mipmap.asb);
+            this.codSol = carregaTextura(gl10,R.mipmap.sun);
+            this.codTerra = carregaTextura(gl10,R.mipmap.terra);
+            this.codLua = carregaTextura(gl10,R.mipmap.moon);
             this.codCanguru = carregaTextura(gl10,R.mipmap.canguru);
 
 
@@ -208,7 +208,7 @@ public class Renderizador implements GLSurfaceView.Renderer/* View.OnTouchListen
 //        gl10.glPopMatrix();
 
 
-//        gl10.glRotatef(this.anguloHora,0,0,2);
+        //gl10.glRotatef(this.anguloHora,0,0,2);
         //gl10.glLoadIdentity();
 //        gl10.glPushMatrix();
 //            //geometrias.get(1).getGl().glRotatef(0,0,0,1);
@@ -236,7 +236,6 @@ public class Renderizador implements GLSurfaceView.Renderer/* View.OnTouchListen
             this.i++;
             this.inicio = System.currentTimeMillis();
         }
-
         Log.i("INFO","Largura:" + this.largura);
         this.anguloHora += 30 * direcao;
         if(this.anguloHora + 500 >= this.largura || this.anguloHora == 0){
